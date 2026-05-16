@@ -167,7 +167,7 @@ Apache 2.0. This project is an independent wrapper and is not affiliated with Go
 
 This project stands on the shoulders of:
 
-- **[Google Material Symbols](https://github.com/google/material-design-icons)** — the icon designs and variable fonts (Apache 2.0)
-- **[marella/material-symbols](https://github.com/marella/material-symbols)** — the npm distribution of Google's fonts plus the canonical icon name list and CSS, which this project consumes as the source of truth for code generation (Apache 2.0)
+- **[Google Material Symbols](https://github.com/google/material-design-icons)** — the icon designs, variable fonts, and SVG path data, all © Google and licensed under Apache 2.0. Every visual asset shipped by this library ultimately originates here.
+- **[marella/material-symbols](https://github.com/marella/material-symbols)** — an automatically-updated npm distribution of Google's fonts, plus the canonical icon name list and CSS, which this project consumes as the source of truth for code generation. License pass-through to Google's Apache 2.0.
 
 See the [NOTICE](https://github.com/heliacn/material-symbols-framework/blob/main/NOTICE) file for the full attribution text.
