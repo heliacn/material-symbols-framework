@@ -38,9 +38,12 @@ jobs:
 
       # Generated icon source is gitignored, so we must regenerate
       # before building. ms/ ships in the repo, so this is offline.
+      # Note: vanilla and angular (font-based) ship a single hand-written
+      # component each (<ms-icon> picks the icon at runtime via attribute),
+      # so they don't need a generator step.
       - name: Generate per-framework sources
         run: |
-          for fw in react preact vue solid svelte astro react-native vanilla \
+          for fw in react preact vue solid svelte astro react-native \
                     react-svg preact-svg vue-svg solid-svg svelte-svg astro-svg \
                     vanilla-svg angular-svg; do
             echo "::group::generate $fw"
