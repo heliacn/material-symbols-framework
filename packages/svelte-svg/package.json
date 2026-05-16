@@ -1,0 +1,63 @@
+{
+  "name": "@material-symbols-framework/svelte-svg",
+  "version": "0.0.1",
+  "description": "Material Symbols icons for Svelte, rendered as inline SVG.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "svelte": "./dist/rounded/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/rounded/index.js",
+      "import": "./dist/rounded/index.js"
+    },
+    "./rounded": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/rounded/index.js",
+      "import": "./dist/rounded/index.js"
+    },
+    "./outlined": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/outlined/index.js",
+      "import": "./dist/outlined/index.js"
+    },
+    "./sharp": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/sharp/index.js",
+      "import": "./dist/sharp/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist src/outlined src/rounded src/sharp",
+    "generate": "node ../../scripts/generate.mjs svelte-svg",
+    "build": "node build.mjs"
+  },
+  "peerDependencies": {
+    "svelte": ">=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heliacn/material-symbols-framework.git",
+    "directory": "packages/svelte-svg"
+  },
+  "bugs": {
+    "url": "https://github.com/heliacn/material-symbols-framework/issues"
+  },
+  "homepage": "https://github.com/heliacn/material-symbols-framework/tree/main/packages/svelte-svg#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "heliacn",
+  "keywords": [
+    "icons",
+    "material-symbols",
+    "material-design",
+    "icon-library",
+    "svelte",
+    "svelte-svg"
+  ]
+}

@@ -1,0 +1,70 @@
+---
+export type MsVariant = 'outlined' | 'outline' | 'rounded' | 'sharp';
+export type MsGrade = -25 | 0 | 200 | number;
+
+export interface Props {
+    icon?: string;
+    code?: string;
+    variant?: MsVariant;
+    size?: number | string;
+    color?: string;
+    fill?: boolean;
+    grad?: MsGrade;
+    strokeWidth?: number;
+    opticalSize?: number;
+    class?: string;
+    style?: string;
+    /** @internal */ __iconName?: string;
+    /** @internal */ __iconClass?: string;
+    [key: string]: unknown;
+}
+
+const {
+    icon,
+    code,
+    variant = 'rounded',
+    size,
+    color,
+    fill = false,
+    grad,
+    strokeWidth,
+    opticalSize,
+    class: userClass,
+    style: userStyle,
+    __iconName,
+    __iconClass,
+    ...rest
+} = Astro.props as Props;
+
+const variantNorm = variant === 'outline' ? 'outlined' : variant;
+
+const fvsParts: string[] = [];
+if (fill) fvsParts.push("'FILL' 1");
+if (grad !== undefined && grad !== 0) fvsParts.push(`'GRAD' ${grad}`);
+if (strokeWidth !== undefined && strokeWidth !== 400) fvsParts.push(`'wght' ${strokeWidth}`);
+if (opticalSize !== undefined && opticalSize !== 48) fvsParts.push(`'opsz' ${opticalSize}`);
+const fvs = fvsParts.length ? fvsParts.join(', ') : null;
+
+const styleParts: string[] = [];
+if (size !== undefined) styleParts.push(`font-size: ${typeof size === 'number' ? `${size}px` : size}`);
+if (color !== undefined) styleParts.push(`color: ${color}`);
+if (fvs) styleParts.push(`font-variation-settings: ${fvs}`);
+if (userStyle) styleParts.push(userStyle);
+const styleStr = styleParts.length ? styleParts.join('; ') : undefined;
+
+const classes = [`material-symbols-${variantNorm}`, __iconClass, userClass].filter(Boolean).join(' ');
+
+const resolvedIcon = __iconName ?? icon;
+const codeChar = code ? String.fromCodePoint(parseInt(code, 16)) : null;
+
+const ariaHidden = rest['aria-label'] ? undefined : 'true';
+---
+
+<span
+    {...rest}
+    class={classes}
+    style={styleStr}
+    aria-hidden={ariaHidden}
+>
+    {Astro.slots.has('default') ? <slot /> : codeChar ?? resolvedIcon}
+</span>

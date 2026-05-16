@@ -1,0 +1,60 @@
+{
+  "name": "@material-symbols-framework/preact",
+  "version": "0.0.1",
+  "description": "Material Symbols icon components for Preact.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./style.css": "./dist/style.css",
+    "./fonts/*": "./dist/fonts/*",
+    "./rounded.css": "./dist/rounded.css",
+    "./outlined.css": "./dist/outlined.css",
+    "./sharp.css": "./dist/sharp.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist src/icons src/icons.ts src/index.ts",
+    "generate": "node ../../scripts/generate.mjs preact",
+    "build": "node build.mjs"
+  },
+  "peerDependencies": {
+    "preact": ">=10"
+  },
+  "devDependencies": {
+    "preact": "^10.24.0",
+    "preact-render-to-string": "^6.6.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heliacn/material-symbols-framework.git",
+    "directory": "packages/preact"
+  },
+  "bugs": {
+    "url": "https://github.com/heliacn/material-symbols-framework/issues"
+  },
+  "homepage": "https://github.com/heliacn/material-symbols-framework/tree/main/packages/preact#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "heliacn",
+  "keywords": [
+    "icons",
+    "material-symbols",
+    "material-design",
+    "icon-library",
+    "preact"
+  ]
+}

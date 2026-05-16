@@ -1,0 +1,62 @@
+{
+  "name": "@material-symbols-framework/solid-svg",
+  "version": "0.0.1",
+  "description": "Material Symbols icons for SolidJS, rendered as inline SVG.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/rounded/index.d.ts",
+      "solid": "./dist/source/rounded/index.jsx",
+      "import": "./dist/source/rounded/index.jsx"
+    },
+    "./rounded": {
+      "types": "./dist/types/rounded/index.d.ts",
+      "solid": "./dist/source/rounded/index.jsx",
+      "import": "./dist/source/rounded/index.jsx"
+    },
+    "./outlined": {
+      "types": "./dist/types/outlined/index.d.ts",
+      "solid": "./dist/source/outlined/index.jsx",
+      "import": "./dist/source/outlined/index.jsx"
+    },
+    "./sharp": {
+      "types": "./dist/types/sharp/index.d.ts",
+      "solid": "./dist/source/sharp/index.jsx",
+      "import": "./dist/source/sharp/index.jsx"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist src/outlined src/rounded src/sharp",
+    "generate": "node ../../scripts/generate.mjs solid-svg",
+    "build": "node build.mjs"
+  },
+  "peerDependencies": {
+    "solid-js": ">=1.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heliacn/material-symbols-framework.git",
+    "directory": "packages/solid-svg"
+  },
+  "bugs": {
+    "url": "https://github.com/heliacn/material-symbols-framework/issues"
+  },
+  "homepage": "https://github.com/heliacn/material-symbols-framework/tree/main/packages/solid-svg#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "heliacn",
+  "keywords": [
+    "icons",
+    "material-symbols",
+    "material-design",
+    "icon-library",
+    "solid",
+    "solid-svg"
+  ]
+}

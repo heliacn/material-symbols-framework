@@ -1,0 +1,66 @@
+{
+  "name": "@material-symbols-framework/react-svg",
+  "version": "0.0.1",
+  "description": "Material Symbols icon components for React, rendered as inline SVG.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/rounded/index.js",
+  "types": "./dist/types/rounded/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/rounded/index.d.ts",
+      "import": "./dist/esm/rounded/index.js",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./rounded": {
+      "types": "./dist/types/rounded/index.d.ts",
+      "import": "./dist/esm/rounded/index.js"
+    },
+    "./outlined": {
+      "types": "./dist/types/outlined/index.d.ts",
+      "import": "./dist/esm/outlined/index.js"
+    },
+    "./sharp": {
+      "types": "./dist/types/sharp/index.d.ts",
+      "import": "./dist/esm/sharp/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist src/icons src/rounded src/outlined src/sharp",
+    "generate": "node ../../scripts/generate.mjs react-svg",
+    "build": "node build.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=17"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "react": "^18.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heliacn/material-symbols-framework.git",
+    "directory": "packages/react-svg"
+  },
+  "bugs": {
+    "url": "https://github.com/heliacn/material-symbols-framework/issues"
+  },
+  "homepage": "https://github.com/heliacn/material-symbols-framework/tree/main/packages/react-svg#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "heliacn",
+  "keywords": [
+    "icons",
+    "material-symbols",
+    "material-design",
+    "icon-library",
+    "react",
+    "react-svg"
+  ]
+}

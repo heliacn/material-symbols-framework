@@ -1,0 +1,53 @@
+{
+  "name": "@material-symbols-framework/vanilla-svg",
+  "version": "0.0.1",
+  "description": "Material Symbols icons for vanilla JS — inline SVG via Web Component.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": [
+    "./dist/esm/auto-register.js"
+  ],
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./auto-register": {
+      "import": "./dist/esm/auto-register.js"
+    },
+    "./icons/*": "./dist/esm/icons/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist src/icons",
+    "generate": "node ../../scripts/generate.mjs vanilla-svg",
+    "build": "node build.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heliacn/material-symbols-framework.git",
+    "directory": "packages/vanilla-svg"
+  },
+  "bugs": {
+    "url": "https://github.com/heliacn/material-symbols-framework/issues"
+  },
+  "homepage": "https://github.com/heliacn/material-symbols-framework/tree/main/packages/vanilla-svg#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "heliacn",
+  "keywords": [
+    "icons",
+    "material-symbols",
+    "material-design",
+    "icon-library",
+    "vanilla",
+    "vanilla-svg"
+  ]
+}

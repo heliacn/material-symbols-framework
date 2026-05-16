@@ -1,0 +1,58 @@
+{
+  "name": "@material-symbols-framework/angular",
+  "version": "0.0.1",
+  "description": "Material Symbols icon component for Angular.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/fesm2022/index.mjs",
+  "module": "./dist/fesm2022/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/fesm2022/index.mjs"
+    },
+    "./style.css": "./dist/style.css",
+    "./fonts/*": "./dist/fonts/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "node build.mjs"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=16",
+    "@angular/common": ">=16"
+  },
+  "devDependencies": {
+    "@angular/core": "^18.0.0",
+    "@angular/common": "^18.0.0",
+    "rxjs": "^7.8.0",
+    "zone.js": "~0.14.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heliacn/material-symbols-framework.git",
+    "directory": "packages/angular"
+  },
+  "bugs": {
+    "url": "https://github.com/heliacn/material-symbols-framework/issues"
+  },
+  "homepage": "https://github.com/heliacn/material-symbols-framework/tree/main/packages/angular#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "heliacn",
+  "keywords": [
+    "icons",
+    "material-symbols",
+    "material-design",
+    "icon-library",
+    "angular"
+  ]
+}

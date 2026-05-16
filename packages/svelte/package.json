@@ -1,0 +1,56 @@
+{
+  "name": "@material-symbols-framework/svelte",
+  "version": "0.0.1",
+  "description": "Material Symbols icon components for Svelte.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./fonts/*": "./dist/fonts/*",
+    "./rounded.css": "./dist/rounded.css",
+    "./outlined.css": "./dist/outlined.css",
+    "./sharp.css": "./dist/sharp.css"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist src/icons src/icons.js src/index.js src/index.d.ts",
+    "generate": "node ../../scripts/generate.mjs svelte",
+    "build": "node build.mjs"
+  },
+  "peerDependencies": {
+    "svelte": ">=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heliacn/material-symbols-framework.git",
+    "directory": "packages/svelte"
+  },
+  "bugs": {
+    "url": "https://github.com/heliacn/material-symbols-framework/issues"
+  },
+  "homepage": "https://github.com/heliacn/material-symbols-framework/tree/main/packages/svelte#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "heliacn",
+  "keywords": [
+    "icons",
+    "material-symbols",
+    "material-design",
+    "icon-library",
+    "svelte"
+  ]
+}

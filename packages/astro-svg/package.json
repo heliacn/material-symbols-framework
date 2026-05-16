@@ -1,0 +1,46 @@
+{
+  "name": "@material-symbols-framework/astro-svg",
+  "version": "0.0.1",
+  "description": "Material Symbols icons for Astro, rendered as inline SVG.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/rounded/index.js",
+    "./rounded": "./dist/rounded/index.js",
+    "./outlined": "./dist/outlined/index.js",
+    "./sharp": "./dist/sharp/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist src/outlined src/rounded src/sharp",
+    "generate": "node ../../scripts/generate.mjs astro-svg",
+    "build": "node build.mjs"
+  },
+  "peerDependencies": {
+    "astro": ">=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heliacn/material-symbols-framework.git",
+    "directory": "packages/astro-svg"
+  },
+  "bugs": {
+    "url": "https://github.com/heliacn/material-symbols-framework/issues"
+  },
+  "homepage": "https://github.com/heliacn/material-symbols-framework/tree/main/packages/astro-svg#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "heliacn",
+  "keywords": [
+    "icons",
+    "material-symbols",
+    "material-design",
+    "icon-library",
+    "astro",
+    "astro-svg"
+  ]
+}

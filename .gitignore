@@ -1,0 +1,62 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+
+# Material Symbols upstream source (di-fetch dari marella, bukan committed)
+# 105 MB — terlalu besar untuk repo. Re-fetch via:
+#   git clone --filter=blob:none --sparse https://github.com/marella/material-symbols.git ms
+#   cd ms && git sparse-checkout set material-symbols svg
+ms/
+
+# Generated source (di-generate dari ms/ saat build CI / release)
+# Tidak di-commit karena: 1) bisa di-regenerate dari ms/  2) repo size lebih kecil
+packages/*/src/icons/
+packages/*/src/icons.ts
+packages/*/src/index.ts
+packages/*/src/outlined/
+packages/*/src/rounded/
+packages/*/src/sharp/
+
+# Bundle measurement outputs
+.bundle-measure/
+.workers-measure/
+
+# Internal dev notes (catatan kerja, flow handoff, knowledge base)
+.dev/
+
+# IDE / Editor
+.vscode/
+.idea/
+.cursor/
+.kiro/
+.antigravity/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+.vite/
+.turbo/
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+*.pem
+
+# pnpm specific
+.pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
