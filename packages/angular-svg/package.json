@@ -16,7 +16,9 @@
     "./icons/*": "./dist/icons/*.mjs"
   },
   "files": [
-    "dist"
+    "dist",
+    "NOTICE",
+    "LICENSE"
   ],
   "scripts": {
     "clean": "rm -rf dist",

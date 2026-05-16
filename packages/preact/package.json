@@ -23,7 +23,9 @@
     "./sharp.css": "./dist/sharp.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "NOTICE",
+    "LICENSE"
   ],
   "scripts": {
     "clean": "rm -rf dist src/icons src/icons.ts src/index.ts",

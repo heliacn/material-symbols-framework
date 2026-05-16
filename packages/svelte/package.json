@@ -23,7 +23,9 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "NOTICE",
+    "LICENSE"
   ],
   "scripts": {
     "clean": "rm -rf dist src/icons src/icons.js src/index.js src/index.d.ts",

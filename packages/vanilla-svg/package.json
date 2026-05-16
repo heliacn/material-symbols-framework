@@ -22,7 +22,9 @@
     "./icons/*": "./dist/esm/icons/*"
   },
   "files": [
-    "dist"
+    "dist",
+    "NOTICE",
+    "LICENSE"
   ],
   "scripts": {
     "clean": "rm -rf dist src/icons",

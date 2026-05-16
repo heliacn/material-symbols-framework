@@ -28,7 +28,9 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "NOTICE",
+    "LICENSE"
   ],
   "scripts": {
     "clean": "rm -rf dist src/outlined src/rounded src/sharp",

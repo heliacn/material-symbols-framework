@@ -19,7 +19,9 @@
     "./fonts/*": "./dist/fonts/*"
   },
   "files": [
-    "dist"
+    "dist",
+    "NOTICE",
+    "LICENSE"
   ],
   "scripts": {
     "clean": "rm -rf dist",

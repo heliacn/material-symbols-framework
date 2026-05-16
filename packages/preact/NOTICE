@@ -1,0 +1,49 @@
+Material Symbols Framework
+Copyright 2026 heliacn (https://github.com/heliacn)
+
+This product includes software developed at heliacn
+(https://github.com/heliacn/material-symbols-framework).
+
+Licensed under the Apache License, Version 2.0 (the "License");
+see the accompanying LICENSE file or
+http://www.apache.org/licenses/LICENSE-2.0 for the License text.
+
+================================================================================
+Third-Party Notices
+================================================================================
+
+This project bundles, derives from, or otherwise depends on the following
+third-party works. Each is distributed under its own license. The acknowledgments
+below are provided to satisfy attribution requirements.
+
+--------------------------------------------------------------------------------
+1. Material Symbols (font and SVG assets)
+--------------------------------------------------------------------------------
+
+Source: https://github.com/google/material-design-icons
+License: Apache License 2.0
+Copyright: Google LLC
+
+The variable font files (`material-symbols-*.woff2`) and the icon SVG path data
+shipped or referenced by this project originate from Google's Material Symbols
+icon set. They are unmodified except for redistribution and inlining in build
+outputs.
+
+--------------------------------------------------------------------------------
+2. material-symbols (npm package by marella)
+--------------------------------------------------------------------------------
+
+Source: https://github.com/marella/material-symbols
+License: Apache License 2.0
+Copyright: marella (https://github.com/marella) and contributors
+
+The CSS files (`material-symbols/*.css`), font files (`material-symbols-*.woff2`),
+and the canonical icon name list (`index.d.ts`) used as the source of truth by
+the code generator in `scripts/` are sourced from `marella/material-symbols`.
+This project re-distributes those files via the build outputs of each
+framework-specific package.
+
+================================================================================
+
+When redistributing this project or its build outputs, retain this NOTICE file
+along with the LICENSE file, in accordance with Apache License 2.0 Section 4(d).
