@@ -6,78 +6,78 @@ import {
 } from 'react';
 
 /**
- * Variant gaya icon. Default: "rounded" (sering disebut paling modern).
+ * Icon style variant. Defaults to `"rounded"` (often considered the most modern).
  *
- * `"outline"` adalah alias dari `"outlined"` — keduanya menghasilkan
- * class `material-symbols-outlined` agar tetap kompatibel dengan
- * konvensi Google.
+ * `"outline"` is an alias of `"outlined"` — both emit the
+ * `material-symbols-outlined` class to stay compatible with
+ * Google's naming convention.
  */
 export type MsVariant = 'outlined' | 'outline' | 'rounded' | 'sharp';
 
 /**
- * Nilai gradasi yang umum dipakai.
- * - `-25`: cocok untuk box / latar gelap (mengurangi silau)
- * - `0`: kondisi normal (default)
- * - `200`: penekanan tinggi, misal di tombol berwarna terang
+ * Common grade values.
+ * - `-25`: low emphasis, ideal for light icons on dark backgrounds (reduces glare)
+ * - `0`: normal (default)
+ * - `200`: high emphasis, e.g. on a light-colored button
  *
- * Tipe ini dibiarkan longgar (`number`) supaya konsumen tetap bebas
- * memberi nilai lain bila Material Symbols mendukungnya di masa depan.
+ * The type is intentionally widened to `number` so consumers stay free
+ * to pass other values if Material Symbols supports them in the future.
  */
 export type MsGrade = -25 | 0 | 200 | number;
 
 export interface MsBaseProps extends HTMLAttributes<HTMLSpanElement> {
     /**
-     * Nama icon dalam snake_case (misal `"home"`, `"android_cell_dual_5_bar_alert"`).
-     * Digunakan saat memakai komponen umum `<Ms />`. Pada komponen per-icon
-     * (`<MsHome />`), prop ini sudah ter-set otomatis.
+     * Icon name in snake_case (e.g. `"home"`, `"android_cell_dual_5_bar_alert"`).
+     * Used with the generic `<Ms />` component. On per-icon components
+     * (e.g. `<MsHome />`) this prop is already set internally.
      */
     icon?: string;
     /**
-     * Codepoint hex untuk icon (misal `"e88a"` untuk home).
-     * Akan di-render sebagai entity unicode. Berguna jika konsumen lebih
-     * suka memetakan icon via codepoint daripada nama.
+     * Hex codepoint of the icon (e.g. `"e88a"` for home).
+     * Rendered as a unicode entity. Useful when mapping icons by
+     * codepoint rather than name.
      */
     code?: string;
-    /** Variant gaya. Default: `"rounded"`. */
+    /** Style variant. Defaults to `"rounded"`. */
     variant?: MsVariant;
-    /** Ukuran icon dalam px. Default: `24`. */
+    /** Icon size in px. Defaults to `24`. */
     size?: number | string;
     /**
-     * Warna icon. Default: mengikuti `currentColor` (tema/sistem konsumen),
-     * jadi bisa dikontrol dari class atau parent style.
+     * Icon color. Defaults to `currentColor`, so it inherits from the
+     * parent's color and can be driven by a class or surrounding style.
      */
     color?: string;
-    /** Aktifkan gaya fill. Default: `false` (non-fill). */
+    /** Enable the filled style. Defaults to `false` (non-fill). */
     fill?: boolean;
     /**
-     * Nilai grade. Default: `0`. Range yang umum: `-25`, `0`, `200`.
+     * Grade value. Defaults to `0`. Common values: `-25`, `0`, `200`.
      */
     grad?: MsGrade;
     /**
-     * Ketebalan stroke (axis `wght` pada variable font).
-     * Default: `400`. Range: `100` (tipis) – `700` (tebal).
+     * Stroke thickness (the `wght` axis of the variable font).
+     * Defaults to `400`. Range: `100` (thin) – `700` (bold).
      */
     strokeWidth?: number;
     /**
-     * Ukuran optik (axis `opsz`). Default: `48`. Range: `20` – `48`.
-     * Ukuran optik secara otomatis menyesuaikan ketebalan stroke saat
-     * icon membesar/mengecil — cocok untuk animasi resize.
+     * Optical size (the `opsz` axis). Defaults to `48`. Range: `20` – `48`.
+     * Automatically tunes stroke thickness as the icon scales up or down —
+     * great for resize animations.
      */
     opticalSize?: number;
-    /** Children opsional, misal `<title>` untuk aksesibilitas. */
+    /** Optional children, e.g. `<title>` for accessibility. */
     children?: ReactNode;
 }
 
-/** Props untuk komponen umum `<Ms />` — `icon` atau `code` wajib diisi. */
+/** Props for the generic `<Ms />` component — `icon` or `code` is required. */
 export type MsProps = MsBaseProps;
 
-/** Class CSS dari variant. */
+/** CSS class for a given variant. */
 export function variantClass(variant: MsVariant): string {
     const v = variant === 'outline' ? 'outlined' : variant;
     return `material-symbols-${v}`;
 }
 
-/** Konversi codepoint hex → string char yang dirender. */
+/** Convert a hex codepoint into the rendered character. */
 export function codeToChar(code: string): string {
     const cp = parseInt(code, 16);
     if (Number.isNaN(cp)) return '';
@@ -85,8 +85,9 @@ export function codeToChar(code: string): string {
 }
 
 /**
- * Bentuk `font-variation-settings` dari kombinasi axis.
- * Hanya emit axis yang berbeda dari default agar string tetap minimal.
+ * Build `font-variation-settings` from the combination of axes.
+ * Only emits axes that differ from the defaults so the resulting
+ * string stays minimal.
  */
 export function buildFontVariationSettings(opts: {
     fill?: boolean;
@@ -107,8 +108,8 @@ export function buildFontVariationSettings(opts: {
 }
 
 /**
- * Props internal yang dipakai oleh komponen per-icon untuk inject
- * `icon` + class spesifik tanpa mengekspos ke konsumen lewat tipe.
+ * Internal props used by per-icon components to inject `icon` + class
+ * without exposing them in the public type surface.
  */
 export interface MsInternalProps extends MsBaseProps {
     /** @internal */
@@ -118,16 +119,16 @@ export interface MsInternalProps extends MsBaseProps {
 }
 
 /**
- * Komponen umum `<Ms />`. Untuk komponen per-icon (`<MsHome />`),
- * gunakan import spesifik supaya tree-shakeable.
+ * Generic `<Ms />` component. For per-icon components (e.g. `<MsHome />`),
+ * use named imports so they stay tree-shakeable.
  */
 export const Ms = forwardRef<HTMLSpanElement, MsProps>(function Ms(props, ref) {
     return renderMs(props, ref);
 });
 
 /**
- * Implementasi render bersama. Diekspos agar komponen per-icon bisa
- * memakai logika yang sama tanpa nest forwardRef.
+ * Shared render implementation. Exposed so per-icon components can reuse
+ * the same logic without nesting forwardRef calls.
  */
 export function renderMs(
     props: MsBaseProps & { __iconName?: string; __iconClass?: string },
@@ -163,8 +164,8 @@ export function renderMs(
 
     const classes = [variantClass(variant), __iconClass, className].filter(Boolean).join(' ');
 
-    // Body: prioritaskan children jika diberi (untuk <title>),
-    // lalu code (codepoint), terakhir nama icon (ligature).
+    // Body priority: children when provided (for <title>),
+    // then code (codepoint), then icon name (ligature).
     let body: ReactNode;
     if (children !== undefined && children !== null) {
         body = children;

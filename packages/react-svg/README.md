@@ -70,7 +70,7 @@ You can mix variants in the same file by importing each from its sub-path.
 
 | Prop      | Type                                          | Default        | Description                                  |
 | :-------- | :-------------------------------------------- | :------------- | :------------------------------------------- |
-| `size`    | `number \| string`                            | `24`           | Width & height (`number` → `px`)             |
+| `size`    | `number \| string`                            | `24`           | Width & height                               |
 | `color`   | `string`                                      | `currentColor` | SVG fill color                               |
 | `fill`    | `boolean`                                     | `false`        | Filled style (uses the alternate path data)  |
 | `className` | `string`                                    | —              | Extra classes                                |

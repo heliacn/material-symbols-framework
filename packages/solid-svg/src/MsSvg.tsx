@@ -7,9 +7,9 @@ export interface MsSvgBaseProps extends Omit<JSX.SvgSVGAttributes<SVGSVGElement>
     color?: string;
     fill?: boolean;
     variant?: MsSvgVariant;
-    /** @deprecated Tidak applicable di SVG. */ grad?: number;
-    /** @deprecated Tidak applicable di SVG. */ strokeWidth?: number;
-    /** @deprecated Tidak applicable di SVG. */ opticalSize?: number;
+    /** @deprecated Not applicable in SVG. */ grad?: number;
+    /** @deprecated Not applicable in SVG. */ strokeWidth?: number;
+    /** @deprecated Not applicable in SVG. */ opticalSize?: number;
 }
 
 export interface MsSvgInternalProps extends MsSvgBaseProps {

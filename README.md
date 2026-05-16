@@ -1,7 +1,13 @@
+<div align="center">
+
+<img src=".github/assets/material-symbols-framework.png" alt="Material Symbols for Framework" width="160" />
+
 # Material Symbols for Framework
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/heliacn/material-symbols-framework/blob/main/LICENSE)
 [![npm](https://img.shields.io/npm/v/@material-symbols-framework/react.svg)](https://www.npmjs.com/package/@material-symbols-framework/react)
+
+</div>
 
 > Material Symbols icon library with first-class support for **9 popular frameworks** —
 > tree-shakeable, type-safe, and bundled with hover preview in your IDE.

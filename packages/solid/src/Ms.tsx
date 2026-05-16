@@ -48,7 +48,7 @@ export interface MsInternalProps extends MsBaseProps {
 }
 
 /**
- * Komponen umum.
+ * Generic component.
  */
 export const Ms: Component<MsProps> = (rawProps) => {
     return renderMs(rawProps);

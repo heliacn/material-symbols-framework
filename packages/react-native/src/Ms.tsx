@@ -5,10 +5,10 @@ export type MsVariant = 'outlined' | 'outline' | 'rounded' | 'sharp';
 export type MsGrade = -25 | 0 | 200 | number;
 
 /**
- * Mapping variant → font family.
- * Konsumen wajib me-load font via expo-font atau Font.loadAsync()
- * dengan key family `MaterialSymbolsOutlined`, `MaterialSymbolsRounded`,
- * `MaterialSymbolsSharp`. Lihat README package.
+ * Mapping from variant to font family.
+ * Consumers must load the font through expo-font or `Font.loadAsync()`
+ * with these family names: `MaterialSymbolsOutlined`,
+ * `MaterialSymbolsRounded`, `MaterialSymbolsSharp`. See the package README.
  */
 export const FONT_FAMILY: Record<'outlined' | 'rounded' | 'sharp', string> = {
     outlined: 'MaterialSymbolsOutlined',
@@ -23,16 +23,16 @@ export interface MsBaseProps extends Omit<TextProps, 'style'> {
     size?: number;
     color?: string;
     /**
-     * Catatan: di React Native, `font-variation-settings` tidak didukung
-     * di semua engine. Prop `fill` saat ini diabaikan kecuali konsumen
-     * me-load font khusus weight/fill yang diinginkan.
+     * Note: in React Native, `font-variation-settings` is not supported
+     * across all engines. The `fill` prop is currently ignored unless
+     * the consumer loads a font specifically for the desired weight/fill.
      */
     fill?: boolean;
-    /** @deprecated Tidak applicable di RN. */
+    /** @deprecated Not applicable in React Native. */
     grad?: MsGrade;
-    /** @deprecated Tidak applicable di RN. */
+    /** @deprecated Not applicable in React Native. */
     strokeWidth?: number;
-    /** @deprecated Tidak applicable di RN. */
+    /** @deprecated Not applicable in React Native. */
     opticalSize?: number;
     style?: StyleProp<TextStyle>;
     children?: ReactNode;

@@ -1,54 +1,54 @@
 import {
-    forwardRef,
     type CSSProperties,
     type SVGAttributes,
     type ReactNode,
 } from 'react';
 
 /**
- * Variant gaya icon. Dipakai sebagai class CSS hint, bukan untuk
- * memilih path (path sudah ditentukan oleh entry point yang diimport).
+ * Icon style variant. Used as a CSS class hint, not for selecting the
+ * actual path (the path is determined by the entry point you import).
  */
 export type MsSvgVariant = 'outlined' | 'outline' | 'rounded' | 'sharp';
 
 /**
- * Props yang di-accept oleh komponen SVG per-icon.
+ * Props accepted by per-icon SVG components.
  *
- * Catatan kompatibilitas dengan versi font-based:
- * - `size`, `color`, `fill`, `className` → didukung penuh
- * - `grad`, `strokeWidth`, `opticalSize` → diterima namun **diabaikan**
- *   karena tidak applicable pada SVG. Ditampilkan di tipe agar konsumen
- *   bisa swap antara `react` dan `react-svg` tanpa error type.
+ * Compatibility notes with the font-based version:
+ * - `size`, `color`, `fill`, `className` → fully supported
+ * - `grad`, `strokeWidth`, `opticalSize` → accepted but **ignored**
+ *   since they are not applicable to SVG. They stay in the type so
+ *   consumers can swap between `react` and `react-svg` without
+ *   typing errors.
  */
 export interface MsSvgBaseProps extends Omit<SVGAttributes<SVGSVGElement>, 'fill'> {
-    /** Ukuran icon. Number → px, string → as-is (mis. `"1em"`, `"2rem"`). Default: `24`. */
+    /** Icon size. Number → px, string → as-is (e.g. `"1em"`, `"2rem"`). Defaults to `24`. */
     size?: number | string;
-    /** Warna fill SVG. Default: `currentColor`. */
+    /** SVG fill color. Defaults to `currentColor`. */
     color?: string;
-    /** Aktifkan gaya fill. Default: `false`. */
+    /** Enable the filled style. Defaults to `false`. */
     fill?: boolean;
-    /** Variant override (tidak mengubah path, hanya class/identifier). */
+    /** Variant override (does not change the path, only the class/identifier). */
     variant?: MsSvgVariant;
 
-    /** @deprecated Tidak applicable di SVG (axis variable font). Diabaikan. */
+    /** @deprecated Not applicable in SVG (variable font axis). Ignored. */
     grad?: number;
-    /** @deprecated Tidak applicable di SVG (axis variable font). Diabaikan. */
+    /** @deprecated Not applicable in SVG (variable font axis). Ignored. */
     strokeWidth?: number;
-    /** @deprecated Tidak applicable di SVG (axis variable font). Diabaikan. */
+    /** @deprecated Not applicable in SVG (variable font axis). Ignored. */
     opticalSize?: number;
 
-    /** Children opsional, mis. `<title>` untuk aksesibilitas. */
+    /** Optional children, e.g. `<title>` for accessibility. */
     children?: ReactNode;
 }
 
-/** Class CSS dari variant. */
+/** CSS class for a given variant. */
 export function variantClass(variant: MsSvgVariant): string {
     const v = variant === 'outline' ? 'outlined' : variant;
     return `material-symbols-${v}`;
 }
 
 /**
- * Props internal yang di-inject oleh komponen per-icon.
+ * Internal props injected by per-icon components.
  */
 export interface MsSvgInternalProps extends MsSvgBaseProps {
     /** @internal */
@@ -64,7 +64,7 @@ export interface MsSvgInternalProps extends MsSvgBaseProps {
 }
 
 /**
- * Render bersama untuk semua komponen SVG per-icon.
+ * Shared render for all per-icon SVG components.
  */
 export function renderMsSvg(
     props: MsSvgInternalProps,
@@ -78,7 +78,7 @@ export function renderMsSvg(
         className,
         style,
         children,
-        // Sengaja ditarik dan dibuang agar tidak bocor ke DOM:
+        // Intentionally pulled out and discarded so they never leak to the DOM:
         grad: _grad,
         strokeWidth: _strokeWidth,
         opticalSize: _opticalSize,
@@ -90,7 +90,6 @@ export function renderMsSvg(
         ...rest
     } = props;
 
-    const dim = typeof size === 'number' ? size : size;
     const effectiveVariant = (variant ?? __variant) as MsSvgVariant;
 
     const mergedStyle: CSSProperties = {
@@ -107,8 +106,8 @@ export function renderMsSvg(
             ref={ref}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -960 960 960"
-            width={dim}
-            height={dim}
+            width={size}
+            height={size}
             fill={color ?? 'currentColor'}
             aria-hidden={rest['aria-label'] ? undefined : true}
             data-icon={__iconName}

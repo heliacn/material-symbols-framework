@@ -1,5 +1,5 @@
 // Generator komponen icon per-framework.
-// Pemakaian: node scripts/generate.mjs <framework>
+// Usage: node scripts/generate.mjs <framework>
 
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -31,21 +31,21 @@ const generators = {
 
 const target = process.argv[2];
 if (!target) {
-    console.error('Pemakaian: node scripts/generate.mjs <framework>');
-    console.error('Pilihan:', Object.keys(generators).join(', '));
+    console.error('Usage: node scripts/generate.mjs <framework>');
+    console.error('Available frameworks:', Object.keys(generators).join(', '));
     process.exit(1);
 }
 
 const fn = generators[target];
 if (!fn) {
-    console.error(`Framework "${target}" belum didukung.`);
+    console.error(`Framework "${target}" is not supported.`);
     process.exit(1);
 }
 
-console.log(`> Generate komponen untuk: ${target}`);
+console.log(`> Generating components for: ${target}`);
 const start = Date.now();
 const count = await fn();
-console.log(`> Selesai. ${count} icon dibuat dalam ${((Date.now() - start) / 1000).toFixed(1)}s`);
+console.log(`> Done. Generated ${count} icons in ${((Date.now() - start) / 1000).toFixed(1)}s`);
 
 // ---------------------------------------------------------------------------
 // Helper: load path SVG rounded untuk preview JSDoc font-based.
@@ -128,7 +128,7 @@ export default ${compName};
         const compName = toComponentName(iconName);
         return `export { ${compName} } from './icons/${compName}.js';`;
     });
-    const barrel = `// Auto-generated. Jangan edit manual.\n${barrelLines.join('\n')}\n`;
+    const barrel = `// Auto-generated. Do not edit manually.\n${barrelLines.join('\n')}\n`;
     await writeFile(path.join(pkgDir, 'src', 'icons.ts'), barrel);
 
     const indexSource = `// Auto-generated entry point.
@@ -316,7 +316,7 @@ ${jsdoc.split('\n').map(l => '    ' + l).join('\n')}
     });
     await writeFile(
         path.join(pkgDir, 'src', 'index.js'),
-        `// Auto-generated. Re-export semua Svelte components.\nexport { default as Ms } from './Ms.svelte';\n${barrelLines.join('\n')}\n`,
+        `// Auto-generated. Re-exports all Svelte components.\nexport { default as Ms } from './Ms.svelte';\n${barrelLines.join('\n')}\n`,
     );
 
     return icons.length;
@@ -452,7 +452,7 @@ export default ${compName};
             .join('\n');
         await writeFile(path.join(variantDir, 'icons.ts'), `// Auto-generated.\n${barrel}\n`);
 
-        const indexSource = `// Auto-generated entry point untuk variant: ${variant}
+        const indexSource = `// Auto-generated entry point for variant: ${variant}
 export type { MsSvgBaseProps, MsSvgVariant } from '../MsSvg.js';
 export * from './icons.js';
 `;
@@ -468,10 +468,6 @@ export * from './icons.js';
 function extractPathD(svg) {
     const m = svg.match(/<path\s+d="([^"]+)"/);
     return m ? m[1] : null;
-}
-
-function capitalize(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 // ===========================================================================
@@ -574,7 +570,7 @@ export default ${compName};
         const barrel = generated.map(({ compName }) => `export { ${compName} } from './icons/${compName}.js';`).join('\n');
         await writeFile(path.join(variantDir, 'icons.ts'), `// Auto-generated.\n${barrel}\n`);
 
-        const indexSource = `// Auto-generated entry point untuk variant: ${variant}
+        const indexSource = `// Auto-generated entry point for variant: ${variant}
 export type { MsSvgBaseProps, MsSvgVariant } from '../MsSvg.js';
 export * from './icons.js';
 `;
@@ -639,7 +635,7 @@ export default ${compName};
         const barrel = generated.map(({ compName }) => `export { ${compName} } from './icons/${compName}.js';`).join('\n');
         await writeFile(path.join(variantDir, 'icons.ts'), `// Auto-generated.\n${barrel}\n`);
 
-        const indexSource = `// Auto-generated entry point untuk variant: ${variant}
+        const indexSource = `// Auto-generated entry point for variant: ${variant}
 export type { MsSvgBaseProps, MsSvgVariant } from '../MsSvg.js';
 export * from './icons.js';
 `;
@@ -708,7 +704,7 @@ export default ${compName};
         const barrel = generated.map(({ compName }) => `export { ${compName} } from './icons/${compName}.js';`).join('\n');
         await writeFile(path.join(variantDir, 'icons.ts'), `// Auto-generated.\n${barrel}\n`);
 
-        const indexSource = `// Auto-generated entry point untuk variant: ${variant}
+        const indexSource = `// Auto-generated entry point for variant: ${variant}
 export type { MsSvgVariant } from '../MsSvg.js';
 export * from './icons.js';
 `;
@@ -977,8 +973,4 @@ export default data;
         console.log(`  - ${variant}: ${map.size} icon`);
     }
     return total;
-}
-
-function cap(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
 }
