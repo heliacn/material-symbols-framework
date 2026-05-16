@@ -5,12 +5,6 @@ node_modules/
 # Build outputs
 dist/
 
-# Material Symbols upstream source (di-fetch dari marella, bukan committed)
-# 105 MB — terlalu besar untuk repo. Re-fetch via:
-#   git clone --filter=blob:none --sparse https://github.com/marella/material-symbols.git ms
-#   cd ms && git sparse-checkout set material-symbols svg
-ms/
-
 # Generated source (di-generate dari ms/ saat build CI / release)
 # Tidak di-commit karena: 1) bisa di-regenerate dari ms/  2) repo size lebih kecil
 packages/*/src/icons/
