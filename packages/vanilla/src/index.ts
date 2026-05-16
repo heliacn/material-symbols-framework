@@ -1,13 +1,13 @@
 /**
- * Material Symbols — Web Component versi vanilla.
+ * Material Symbols — vanilla Web Component.
  *
- * Berbeda dari adapter framework (React/Vue/dst), versi ini hanya
- * mendaftarkan **satu** custom element `<ms-icon>` (bukan 3879). Konsumen
- * memilih icon lewat atribut `icon` atau `code`. Pendekatan ini lebih
- * realistis untuk vanilla — register ribuan custom element tidak ideal
- * untuk performa maupun bundle.
+ * Unlike framework adapters (React/Vue/etc.), this version registers a
+ * **single** custom element `<ms-icon>` instead of 3879 of them. Consumers
+ * pick the icon via the `icon` or `code` attribute. This approach is more
+ * realistic for vanilla — registering thousands of custom elements isn't
+ * ideal for performance or bundle size.
  *
- * Pemakaian:
+ * Usage:
  * ```html
  * <link rel="stylesheet" href="@material-symbols-framework/vanilla/style.css" />
  * <script type="module">
@@ -21,7 +21,7 @@
  * <ms-icon icon="home" fill grad="-25"></ms-icon>
  * ```
  *
- * Atau, untuk auto-register saat di-import:
+ * Or, to auto-register on import:
  * ```js
  * import '@material-symbols-framework/vanilla/auto-register';
  * ```
@@ -61,13 +61,13 @@ function toIconClass(iconName: string): string {
 /**
  * Custom element `<ms-icon>`.
  *
- * Atribut yang didukung:
- * - `icon` — nama icon snake_case
- * - `code` — codepoint hex
+ * Supported attributes:
+ * - `icon` — icon name in snake_case
+ * - `code` — hex codepoint
  * - `variant` — outlined | rounded | sharp (default: rounded)
- * - `size` — px atau string CSS
- * - `color` — warna
- * - `fill` — boolean (cukup hadir/tidak)
+ * - `size` — px or any CSS length string
+ * - `color` — color
+ * - `fill` — boolean (presence is enough)
  * - `grad`, `stroke-width`, `optical-size` — variable font axes
  */
 export class MsIconElement extends HTMLElement {
@@ -109,9 +109,9 @@ export class MsIconElement extends HTMLElement {
 
         const body = code ? codeToChar(code) : (icon ?? '');
 
-        // Kita render via class+textContent (tanpa Shadow DOM) supaya CSS
-        // global Material Symbols berlaku, dan styling pengguna lewat class
-        // bisa menembus seperti elemen biasa.
+        // We render via class + textContent (no Shadow DOM) so the global
+        // Material Symbols CSS still applies, and consumer styling via
+        // classes can pierce through like on any normal element.
         this.className = classes;
         if (styleStr) {
             this.style.cssText = styleStr;
@@ -128,7 +128,7 @@ function numAttr(el: HTMLElement, name: string): number | undefined {
 }
 
 /**
- * Daftarkan custom element `<ms-icon>` (idempotent).
+ * Register the `<ms-icon>` custom element (idempotent).
  */
 export function defineMsIcon(tagName = 'ms-icon'): void {
     if (typeof window === 'undefined') return;

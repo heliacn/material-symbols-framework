@@ -1,6 +1,6 @@
 {
   "name": "@material-symbols-framework/react-native",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Material Symbols icon components for React Native.",
   "license": "Apache-2.0",
   "type": "module",

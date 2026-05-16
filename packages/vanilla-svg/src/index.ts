@@ -1,12 +1,12 @@
 /**
- * Material Symbols — Web Component versi SVG.
+ * Material Symbols — SVG Web Component.
  *
- * Sama seperti versi vanilla font-based, kita pakai **satu** custom
- * element `<ms-svg-icon>`. Yang berbeda: untuk SVG kita perlu path
- * data per-icon. Konsumen meng-register icon yang mereka pakai
- * supaya tree-shaking tetap bekerja.
+ * Like the font-based vanilla version, this exposes a **single** custom
+ * element `<ms-svg-icon>`. The difference: SVG needs per-icon path data,
+ * so consumers register the icons they actually use to keep tree-shaking
+ * working.
  *
- * Pemakaian:
+ * Usage:
  * ```html
  * <script type="module">
  *   import { defineMsSvgIcon, registerIcon } from '@material-symbols-framework/vanilla-svg';
@@ -36,7 +36,7 @@ function key(name: string, variant: 'outlined' | 'rounded' | 'sharp'): string {
     return `${variant}:${name}`;
 }
 
-/** Daftarkan satu (atau banyak) icon ke registry. */
+/** Register one or more icons in the registry. */
 export function registerIcon(...icons: IconData[]): void {
     for (const icon of icons) {
         REGISTRY.set(key(icon.name, icon.variant), icon);
@@ -85,7 +85,7 @@ export class MsSvgIconElement extends HTMLElement {
 
         const icon = lookup(iconName, v);
         if (!icon) {
-            console.warn(`[ms-svg-icon] Icon "${iconName}" (${v}) belum di-register. Panggil registerIcon() dulu.`);
+            console.warn(`[ms-svg-icon] Icon "${iconName}" (${v}) is not registered. Call registerIcon() first.`);
             this.replaceChildren();
             return;
         }
@@ -94,7 +94,7 @@ export class MsSvgIconElement extends HTMLElement {
         const size = this.getAttribute('size') ?? '24';
         const color = this.getAttribute('color') ?? 'currentColor';
 
-        // Bersihkan & rebuild via DOM (lebih aman dari innerHTML untuk SVG ns).
+        // Clean up & rebuild via DOM (safer than innerHTML for SVG namespaces).
         const svg = document.createElementNS(SVG_NS, 'svg');
         svg.setAttribute('xmlns', SVG_NS);
         svg.setAttribute('viewBox', '0 -960 960 960');

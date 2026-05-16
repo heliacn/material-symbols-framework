@@ -4,7 +4,7 @@
 
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { cp, mkdir, readdir, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readdir, rm } from 'node:fs/promises';
 import { copyFontAssets } from '../../scripts/lib/assets.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

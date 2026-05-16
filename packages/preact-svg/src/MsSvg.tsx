@@ -1,4 +1,3 @@
-import { forwardRef } from 'preact/compat';
 import type { JSX, Ref, ComponentChildren } from 'preact';
 
 export type MsSvgVariant = 'outlined' | 'outline' | 'rounded' | 'sharp';
@@ -8,11 +7,11 @@ export interface MsSvgBaseProps extends Omit<JSX.SVGAttributes<SVGSVGElement>, '
     color?: string;
     fill?: boolean;
     variant?: MsSvgVariant;
-    /** @deprecated Tidak applicable di SVG. */
+    /** @deprecated Not applicable in SVG. */
     grad?: number;
-    /** @deprecated Tidak applicable di SVG. */
+    /** @deprecated Not applicable in SVG. */
     strokeWidth?: number;
-    /** @deprecated Tidak applicable di SVG. */
+    /** @deprecated Not applicable in SVG. */
     opticalSize?: number;
     children?: ComponentChildren;
 }

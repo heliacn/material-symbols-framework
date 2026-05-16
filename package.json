@@ -1,6 +1,6 @@
 {
   "name": "material-symbols-framework",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "private": true,
   "description": "Material Symbols icon library with first-class support for popular frameworks.",
   "license": "Apache-2.0",

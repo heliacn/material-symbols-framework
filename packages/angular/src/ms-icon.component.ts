@@ -38,9 +38,9 @@ function buildFontVariationSettings(opts: {
 }
 
 /**
- * Komponen `<ms-icon>` untuk Angular.
+ * `<ms-icon>` Angular component.
  *
- * Pemakaian:
+ * Usage:
  * ```html
  * <ms-icon icon="home"></ms-icon>
  * <ms-icon icon="home" variant="outlined" [size]="32" color="red"></ms-icon>
@@ -48,7 +48,7 @@ function buildFontVariationSettings(opts: {
  * <ms-icon icon="home" fill [grad]="-25"></ms-icon>
  * ```
  *
- * Standalone — tinggal import di komponen lain:
+ * Standalone — just import it from another component:
  * ```ts
  * import { MsIconComponent } from '@material-symbols-framework/angular';
  *

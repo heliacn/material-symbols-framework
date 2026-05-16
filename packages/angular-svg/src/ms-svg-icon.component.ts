@@ -32,9 +32,9 @@ function toIconClass(iconName: string): string {
 }
 
 /**
- * Komponen `<ms-svg-icon>` untuk Angular.
+ * `<ms-svg-icon>` Angular component.
  *
- * Pemakaian:
+ * Usage:
  * ```ts
  * import { MsSvgIconComponent, registerIcon } from '@material-symbols-framework/angular-svg';
  * import home from '@material-symbols-framework/angular-svg/icons/rounded/home';
@@ -88,7 +88,7 @@ export class MsSvgIconComponent {
         if (!this.icon) return '';
         const data = REGISTRY.get(`${this.effVariant}:${this.icon}`);
         if (!data) {
-            console.warn(`[ms-svg-icon] Icon "${this.icon}" (${this.effVariant}) belum di-register.`);
+            console.warn(`[ms-svg-icon] Icon "${this.icon}" (${this.effVariant}) is not registered.`);
             return '';
         }
         return this.fill ? data.pathFill : data.path;

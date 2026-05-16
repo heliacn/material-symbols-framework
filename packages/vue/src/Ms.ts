@@ -42,7 +42,7 @@ const sharedProps = {
 
 export const sharedMsProps = sharedProps;
 
-/** Komponen umum `<Ms />`. */
+/** Generic `<Ms />` component. */
 export const Ms = defineComponent({
     name: 'Ms',
     inheritAttrs: true,
@@ -58,7 +58,7 @@ export interface RenderArgs {
 }
 
 /**
- * Render bersama. Dipanggil oleh komponen umum dan komponen per-icon.
+ * Shared render. Called by the generic component and per-icon components.
  */
 export function renderMs(
     props: any,
@@ -96,7 +96,7 @@ export function renderMs(
 
     const ariaHidden = (attrs as any)['aria-label'] ? undefined : 'true';
 
-    // Buang class & style dari attrs supaya tidak duplikat (kita merge manual di atas).
+    // Drop class & style from attrs so they aren't duplicated (we merge them manually above).
     const { class: _c, style: _s, ...restAttrs } = attrs as any;
 
     return h('span', {

@@ -1,6 +1,6 @@
 {
   "name": "@material-symbols-framework/vanilla",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Material Symbols icon library for vanilla JS / Web Components.",
   "license": "Apache-2.0",
   "type": "module",
