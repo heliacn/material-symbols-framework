@@ -14,6 +14,16 @@ packages/*/src/outlined/
 packages/*/src/rounded/
 packages/*/src/sharp/
 
+# Un-ignore manual sources for packages without a generator step.
+# vanilla & angular ship a single hand-written <ms-icon> component;
+# vanilla-svg & angular-svg have a hand-written index.ts that re-exports
+# the registry helpers (the per-icon data files under src/icons/{variant}/
+# are still generated and stay ignored).
+!packages/vanilla/src/index.ts
+!packages/vanilla-svg/src/index.ts
+!packages/angular/src/index.ts
+!packages/angular-svg/src/index.ts
+
 # Bundle measurement outputs
 .bundle-measure/
 .workers-measure/
