@@ -1,0 +1,123 @@
+name: Update Icons
+
+# Periodic check for new icons in marella/material-symbols (which mirrors
+# Google Material Symbols). If anything changed, opens a PR that:
+#   1. Refreshes ms/material-symbols/* (CSS, .woff2, index.d.ts)
+#   2. Refreshes ms/svg/400/{outlined,rounded,sharp}/*.svg
+#   3. Bumps the patch version of every package
+#
+# The PR triggers CI; once green, merging it (and pushing a tag) will
+# release the updated icons.
+
+on:
+  schedule:
+    # Mondays at 06:00 UTC. Adjust if upstream releases more often.
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  update:
+    name: Sync icons from marella/material-symbols
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      # Sparse-clone marella into a temp dir, then sync the subset we use
+      # (ms/material-symbols and ms/svg) into the repo's ms/ folder.
+      - name: Fetch upstream marella/material-symbols
+        run: |
+          rm -rf /tmp/upstream-marella
+          git clone --depth 1 --filter=blob:none --sparse \
+            https://github.com/marella/material-symbols.git \
+            /tmp/upstream-marella
+          cd /tmp/upstream-marella
+          git sparse-checkout set material-symbols svg
+
+      - name: Read upstream version
+        id: upstream
+        run: |
+          VERSION=$(node -p "require('/tmp/upstream-marella/material-symbols/package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Upstream marella version: $VERSION"
+
+      - name: Sync ms/ folder
+        run: |
+          rm -rf ms/material-symbols ms/svg
+          mkdir -p ms
+          cp -r /tmp/upstream-marella/material-symbols ms/
+          cp -r /tmp/upstream-marella/svg ms/
+
+      - name: Detect changes
+        id: changes
+        run: |
+          if git diff --quiet ms/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No upstream changes."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            CHANGED_FILES=$(git diff --name-only ms/ | wc -l)
+            echo "Upstream changed: $CHANGED_FILES file(s) under ms/"
+          fi
+
+      - name: Bump patch version on every package
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          node <<'EOF'
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const pkgs = fs.readdirSync('packages')
+            .filter(d => fs.statSync(path.join('packages', d)).isDirectory());
+          for (const d of pkgs) {
+            const f = path.join('packages', d, 'package.json');
+            const j = JSON.parse(fs.readFileSync(f, 'utf8'));
+            const [maj, min, p] = j.version.split('.').map(Number);
+            j.version = `${maj}.${min}.${p + 1}`;
+            fs.writeFileSync(f, JSON.stringify(j, null, 2) + '\n');
+            console.log(`bumped ${j.name} → ${j.version}`);
+          }
+          EOF
+
+      - name: Read new package version
+        if: steps.changes.outputs.changed == 'true'
+        id: new
+        run: |
+          NEW=$(node -p "require('./packages/react/package.json').version")
+          echo "version=$NEW" >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: sync icons with marella v${{ steps.upstream.outputs.version }}"
+          branch: bot/update-icons
+          delete-branch: true
+          title: "chore: sync icons with marella v${{ steps.upstream.outputs.version }}"
+          body: |
+            Automated update.
+
+            **Upstream:** [`marella/material-symbols@${{ steps.upstream.outputs.version }}`](https://github.com/marella/material-symbols/releases)
+            **Bumped to:** `${{ steps.new.outputs.version }}` across all 17 packages.
+
+            CI on this PR will regenerate the per-framework sources, build, and run smoke tests.
+            Merge + push a tag `v${{ steps.new.outputs.version }}` to release.
+          labels: |
+            automated
+            icons

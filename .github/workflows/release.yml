@@ -1,0 +1,122 @@
+name: Release
+
+# Triggers when a tag like v0.0.2, v0.1.0, v1.0.0 is pushed to main.
+# Workflow:
+#   1. Build & smoke-test (mirror of CI)
+#   2. Verify the tag matches the version in packages/react/package.json
+#   3. Publish all 17 packages to npm with the same version
+#   4. Create a GitHub Release from the tag with auto-generated notes
+#
+# Required secret:
+#   NPM_TOKEN — granular access token with "bypass 2FA" enabled,
+#               scoped to @material-symbols-framework with read+write.
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Build, publish to npm, create GitHub release
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    permissions:
+      contents: write   # needed to create the GitHub Release
+      id-token: write   # needed for npm provenance
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history so the release notes generator can compute the diff.
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate per-framework sources
+        run: |
+          for fw in react preact vue solid svelte astro react-native vanilla \
+                    react-svg preact-svg vue-svg solid-svg svelte-svg astro-svg \
+                    vanilla-svg angular-svg; do
+            echo "::group::generate $fw"
+            node scripts/generate.mjs "$fw"
+            echo "::endgroup::"
+          done
+
+      - name: Build all packages
+        run: pnpm -r --filter "./packages/*" run build
+
+      - name: Smoke test
+        run: node scripts/smoke-test.mjs
+
+      # Verify that every package version equals the git tag (minus the leading "v").
+      # If they don't match, fail before publishing — mismatched versions on npm
+      # are painful to undo.
+      - name: Verify tag matches package versions
+        run: |
+          TAG="${GITHUB_REF#refs/tags/v}"
+          echo "Tag version: $TAG"
+          MISMATCH=0
+          for pkg in packages/*/package.json; do
+            VERSION=$(node -p "require('./$pkg').version")
+            NAME=$(node -p "require('./$pkg').name")
+            if [ "$VERSION" != "$TAG" ]; then
+              echo "::error file=$pkg::$NAME has version $VERSION but tag is $TAG"
+              MISMATCH=1
+            fi
+          done
+          if [ "$MISMATCH" -ne 0 ]; then
+            exit 1
+          fi
+          echo "All 17 packages match tag $TAG"
+
+      - name: Publish to npm (sequential, with provenance)
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          # Sequential publish keeps load light and surfaces failures
+          # one-by-one, exactly the strategy used for the manual 0.0.1 release.
+          set -e
+          PACKAGES=(
+            vanilla astro svelte solid preact react react-native vue angular
+            angular-svg vanilla-svg astro-svg svelte-svg solid-svg
+            preact-svg react-svg vue-svg
+          )
+          for pkg in "${PACKAGES[@]}"; do
+            echo "::group::publish @material-symbols-framework/$pkg"
+            (cd "packages/$pkg" && npm publish --access public --provenance --no-git-checks)
+            echo "::endgroup::"
+          done
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          body: |
+            Automated release for `${{ github.ref_name }}`.
+
+            All 17 packages under `@material-symbols-framework/*` are published to npm
+            at this version. See per-package README for installation and usage:
+
+            - https://www.npmjs.com/package/@material-symbols-framework/react
+            - https://www.npmjs.com/package/@material-symbols-framework/vue
+            - https://www.npmjs.com/package/@material-symbols-framework/svelte
+            - …and 14 more.
