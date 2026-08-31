@@ -1,6 +1,6 @@
 {
   "name": "@material-symbols-framework/svelte-svg",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Material Symbols icons for Svelte, rendered as inline SVG.",
   "license": "Apache-2.0",
   "type": "module",

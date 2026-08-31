@@ -1,6 +1,6 @@
 {
   "name": "@material-symbols-framework/vanilla-svg",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Material Symbols icons for vanilla JS — inline SVG via Web Component.",
   "license": "Apache-2.0",
   "type": "module",
